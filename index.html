@@ -326,16 +326,31 @@ function resetAll(){ if(confirm('Удалить ВСЕ данные и исто�
 
 /* ===== ПИАНО (Web Audio) ===== */
 const NOTES=[['до','C',261.63],['ре','D',293.66],['ми','E',329.63],['фа','F',349.23],['соль','G',392.00],['ля','A',440.00],['си','B',493.88],['до↑','C',523.25]];
-let oct=1, actx=null;
-function ac(){ if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)(); if(actx.state==='suspended')actx.resume(); return actx; }
-function tone(freq,dur=0.7){
-  const c=ac(), o=c.createOscillator(), g=c.createGain();
+let oct=1, actx=null, unlocked=false;
+function ac(){ if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)(); return actx; }
+function unlock(){
+  const c=ac();
+  if(c.state==='suspended') c.resume();
+  if(!unlocked){ // silent buffer — iOS Web Audio unlock
+    const b=c.createBuffer(1,1,22050), s=c.createBufferSource();
+    s.buffer=b; s.connect(c.destination); s.start(0); unlocked=true;
+  }
+}
+document.addEventListener('touchstart',unlock,{once:false});
+document.addEventListener('click',unlock,{once:false});
+function beep(c,freq,dur){
+  const o=c.createOscillator(), g=c.createGain();
   o.type='triangle'; o.frequency.value=freq;
   o.connect(g); g.connect(c.destination);
   const t=c.currentTime;
-  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(0.35,t+0.02);
-  g.gain.setValueAtTime(0.35,t+dur-0.1); g.gain.linearRampToValueAtTime(0,t+dur);
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(0.4,t+0.02);
+  g.gain.setValueAtTime(0.4,t+dur-0.1); g.gain.linearRampToValueAtTime(0,t+dur);
   o.start(t); o.stop(t+dur);
+}
+function tone(freq,dur=0.7){
+  const c=ac();
+  if(c.state==='suspended') c.resume().then(()=>beep(c,freq,dur));
+  else beep(c,freq,dur);
 }
 function setOct(el){ oct=parseFloat(el.dataset.o); document.querySelectorAll('.octbtn').forEach(b=>b.classList.remove('act')); el.classList.add('act'); }
 function renderKeys(){
