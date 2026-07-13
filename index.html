@@ -13,107 +13,66 @@
 :root{
   --bg:#F2F2F7; --card:#FFFFFF; --sep:rgba(60,60,67,.14);
   --txt:#000; --dim:#8A8A8E; --dim2:#6D6D72;
-  --blue:#007AFF; --green:#34C759; --red:#FF3B30; --orange:#FF9500;
-  --fill:#787880;
+  --blue:#007AFF; --green:#34C759; --red:#FF3B30; --orange:#FF9500; --purple:#AF52DE;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{background:var(--bg)}
 body{
   color:var(--txt);
-  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display','Segoe UI',Roboto,sans-serif;
-  padding:0 0 calc(70px + env(safe-area-inset-bottom));
-  -webkit-font-smoothing:antialiased;
-  max-width:640px;margin:0 auto;
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Segoe UI',Roboto,sans-serif;
+  padding:0 0 calc(72px + env(safe-area-inset-bottom));
+  -webkit-font-smoothing:antialiased;max-width:640px;margin:0 auto;
 }
-.wrap{padding:0 16px}
-
-/* large title iOS */
 .ltitle{padding:8px 16px 2px;font-size:34px;font-weight:800;letter-spacing:.37px}
 .lsub{padding:0 16px 14px;color:var(--dim2);font-size:14px;line-height:1.35}
 
-/* stats row */
 .stats{display:flex;gap:10px;padding:0 16px 18px}
-.stat{
-  flex:1;background:var(--card);border-radius:14px;padding:14px 8px;text-align:center;
-  box-shadow:0 1px 2px rgba(0,0,0,.04);
-}
+.stat{flex:1;background:var(--card);border-radius:14px;padding:14px 8px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .stat b{display:block;font-size:26px;font-weight:800;line-height:1;letter-spacing:-.5px}
 .stat span{font-size:11px;color:var(--dim);margin-top:5px;display:block}
 .stat.s1 b{color:var(--orange)} .stat.s2 b{color:var(--blue)} .stat.s3 b{color:var(--green)}
 
-/* progress */
 .prog{padding:0 16px 6px;display:flex;justify-content:space-between;align-items:baseline}
 .prog h2{font-size:15px;font-weight:700;color:var(--dim2)}
 .prog .p{font-size:15px;font-weight:700;color:var(--blue)}
-.barbox{padding:0 16px 20px}
+.barbox{padding:0 16px 18px}
 .bar{height:8px;background:#E4E4E9;border-radius:8px;overflow:hidden}
 .bar>i{display:block;height:100%;width:0;background:var(--green);border-radius:8px;transition:width .35s}
 
-/* section header iOS */
-.shead{
-  padding:14px 16px 6px;font-size:13px;font-weight:600;color:var(--dim);
-  text-transform:uppercase;letter-spacing:.4px;display:flex;justify-content:space-between;align-items:center;
-}
+.shead{padding:15px 16px 6px;font-size:13px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;display:flex;justify-content:space-between;align-items:center}
 .shead .m{color:var(--dim);font-weight:600;text-transform:none;letter-spacing:0}
 .shead.done{color:var(--green)}
 
-/* grouped card */
-.group{
-  background:var(--card);border-radius:14px;margin:0 16px 4px;overflow:hidden;
-  box-shadow:0 1px 2px rgba(0,0,0,.04);
-}
-.row{
-  display:flex;align-items:center;gap:13px;padding:12px 15px;
-  position:relative;cursor:pointer;transition:background .12s;
-}
+.group{background:var(--card);border-radius:14px;margin:0 16px 4px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.row{display:flex;align-items:flex-start;gap:13px;padding:12px 15px;position:relative;cursor:pointer;transition:background .12s}
 .row:active{background:#E9E9EE}
-.row+.row::before{
-  content:'';position:absolute;top:0;left:51px;right:0;height:1px;background:var(--sep);
-}
-/* iOS circle checkbox */
-.cb{
-  flex-shrink:0;width:25px;height:25px;border-radius:50%;
-  border:2px solid #C7C7CC;background:transparent;
-  display:flex;align-items:center;justify-content:center;
-  transition:.18s;font-size:15px;color:#fff;
-}
+.row+.row::before{content:'';position:absolute;top:0;left:51px;right:0;height:1px;background:var(--sep)}
+.cb{flex-shrink:0;width:25px;height:25px;border-radius:50%;border:2px solid #C7C7CC;background:transparent;display:flex;align-items:center;justify-content:center;transition:.18s;font-size:15px;color:#fff;margin-top:1px}
 .cb.on{background:var(--green);border-color:var(--green)}
 .txt{flex:1;min-width:0}
 .txt b{font-size:16px;font-weight:500;display:block;line-height:1.25;letter-spacing:-.2px}
-.txt p{font-size:13.5px;color:var(--dim2);line-height:1.35;margin-top:2px}
+.txt p{font-size:13.5px;color:var(--dim2);line-height:1.4;margin-top:2px}
 .txt.on b{color:var(--dim);text-decoration:line-through}
 .txt.on p{color:#B8B8BD}
-.min{flex-shrink:0;font-size:13px;font-weight:600;color:var(--blue);align-self:flex-start;margin-top:1px}
+.min{flex-shrink:0;font-size:13px;font-weight:600;color:var(--blue);margin-top:1px}
 .row.on .min{color:var(--dim)}
+.tag{display:inline-block;font-size:11px;font-weight:600;color:var(--purple);background:rgba(175,82,222,.12);padding:1px 7px;border-radius:6px;margin-left:6px;vertical-align:middle}
 
-/* rule banner */
-.rule{
-  background:var(--card);border-radius:14px;margin:0 16px 4px;padding:14px 16px;
-  font-size:14px;line-height:1.5;box-shadow:0 1px 2px rgba(0,0,0,.04);
-}
+.rule{background:var(--card);border-radius:14px;margin:0 16px 4px;padding:14px 16px;font-size:14px;line-height:1.5;box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .rule .k{font-weight:700;color:var(--blue)}
 .rule .warn{color:var(--red);font-weight:600}
 .rule .ok{color:var(--green);font-weight:600}
 .rule .div{height:1px;background:var(--sep);margin:9px 0}
+.info{font-size:13px;color:var(--dim2);line-height:1.5}
+.info b{color:var(--txt)}
 
-/* button */
-.btn{
-  display:block;width:calc(100% - 32px);margin:16px 16px 4px;
-  background:var(--green);color:#fff;border:none;
-  padding:15px;border-radius:14px;font-size:17px;font-weight:600;
-  cursor:pointer;font-family:inherit;transition:.12s;
-}
+.btn{display:block;width:calc(100% - 32px);margin:16px 16px 4px;background:var(--green);color:#fff;border:none;padding:15px;border-radius:14px;font-size:17px;font-weight:600;cursor:pointer;font-family:inherit;transition:.12s}
 .btn:active{opacity:.7}
 .btn.saved{background:var(--card);color:var(--dim);box-shadow:0 1px 2px rgba(0,0,0,.04)}
 
-/* journal */
-.feel{
-  width:calc(100% - 32px);margin:0 16px 12px;background:var(--card);
-  border:none;border-radius:14px;color:var(--txt);padding:14px;font-size:16px;
-  font-family:inherit;resize:none;box-shadow:0 1px 2px rgba(0,0,0,.04);
-}
+.feel{width:calc(100% - 32px);margin:0 16px 12px;background:var(--card);border:none;border-radius:14px;color:var(--txt);padding:14px;font-size:16px;font-family:inherit;resize:none;box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .feel::placeholder{color:var(--dim)}
-.jrow{display:flex;align-items:center;gap:12px;padding:13px 15px;position:relative;cursor:default}
+.jrow{display:flex;align-items:center;gap:12px;padding:13px 15px;position:relative}
 .jrow+.jrow::before{content:'';position:absolute;top:0;left:15px;right:0;height:1px;background:var(--sep)}
 .jrow .d{font-weight:700;min-width:48px;font-size:15px}
 .jrow .dots{flex:1;letter-spacing:3px;font-size:13px;color:var(--green)}
@@ -123,17 +82,23 @@ body{
 .empty{color:var(--dim);font-size:14px;text-align:center;padding:30px 16px}
 .reset{color:var(--red);font-size:14px;text-align:center;margin:24px 0 0;cursor:pointer}
 
-/* tab bar iOS */
-.tabs{
-  position:fixed;bottom:0;left:0;right:0;
-  background:rgba(249,249,249,.94);backdrop-filter:saturate(180%) blur(20px);
-  -webkit-backdrop-filter:saturate(180%) blur(20px);
-  border-top:.5px solid rgba(0,0,0,.14);
-  display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:50;
-  max-width:640px;margin:0 auto;
-}
+/* piano */
+.octbar{display:flex;gap:8px;padding:4px 16px 14px}
+.octbtn{flex:1;padding:10px;border-radius:12px;border:none;background:var(--card);color:var(--dim2);font-size:14px;font-weight:600;font-family:inherit;box-shadow:0 1px 2px rgba(0,0,0,.04);cursor:pointer}
+.octbtn.act{background:var(--blue);color:#fff}
+.keys{padding:0 16px}
+.key{display:flex;align-items:center;justify-content:space-between;width:100%;padding:16px 20px;margin-bottom:8px;border:none;border-radius:14px;background:var(--card);box-shadow:0 1px 3px rgba(0,0,0,.06);font-family:inherit;cursor:pointer;transition:.08s}
+.key:active,.key.play{background:var(--blue);transform:scale(.985)}
+.key .note{font-size:20px;font-weight:700}
+.key.play .note,.key:active .note{color:#fff}
+.key .lat{font-size:14px;color:var(--dim);font-weight:600}
+.key.play .lat,.key:active .lat{color:rgba(255,255,255,.8)}
+.gamma{display:block;width:calc(100% - 32px);margin:6px 16px 16px;background:var(--purple);color:#fff;border:none;padding:14px;border-radius:14px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer}
+.gamma:active{opacity:.7}
+
+.tabs{position:fixed;bottom:0;left:0;right:0;background:rgba(249,249,249,.94);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-top:.5px solid rgba(0,0,0,.14);display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:50;max-width:640px;margin:0 auto}
 .tab{flex:1;text-align:center;color:var(--dim);font-size:10px;padding:7px 0 5px;cursor:pointer;font-weight:500}
-.tab .i{font-size:23px;display:block;margin-bottom:1px}
+.tab .i{font-size:22px;display:block;margin-bottom:1px}
 .tab.act{color:var(--blue)}
 .page{display:none} .page.act{display:block}
 .pad{height:8px}
@@ -153,16 +118,28 @@ body{
 <!-- TODAY -->
 <div class="page act" id="pgToday">
   <div class="rule">
-    <span class="k">Вдох</span> = живот вперёд (плечи стоят). <span class="k">Пою</span> = живот медленно назад = опора. Горло расслаблено.
+    <span class="k">Вдох</span> = живот вперёд (плечи стоят). <span class="k">Пою</span> = живот медленно назад = опора. Горло расслаблено, работает пресс.
     <div class="div"></div>
     <span class="ok">✓ пресс устал = хорошо</span> · <span class="warn">✕ хрип = стоп сразу</span>
   </div>
-
-  <div class="prog"><h2>Рутина сегодня · ~25 мин</h2><span class="p" id="pctTxt">0%</span></div>
+  <div class="prog"><h2 id="progH2">Рутина сегодня</h2><span class="p" id="pctTxt">0%</span></div>
   <div class="barbox"><div class="bar"><i id="barFill"></i></div></div>
-
   <div id="blocks"></div>
   <button class="btn" id="saveBtn" onclick="saveDay()">Записать занятие</button>
+  <div class="pad"></div>
+</div>
+
+<!-- PIANO -->
+<div class="page" id="pgPiano">
+  <div class="shead">🎹 Пиано · попадай в ноту</div>
+  <div class="rule info">Нажми ноту — услышишь звук. Пропой её голосом, слейся с нотой. Для упражнений «тётя-дя-дя», «У-у-у по ступенькам», «Ма» — жми клавиши по порядку. Кнопка внизу играет всю гамму вверх-вниз.</div>
+  <div class="octbar">
+    <button class="octbtn" data-o="0.5" onclick="setOct(this)">Низкая</button>
+    <button class="octbtn act" data-o="1" onclick="setOct(this)">Средняя</button>
+    <button class="octbtn" data-o="2" onclick="setOct(this)">Высокая</button>
+  </div>
+  <div class="keys" id="keys"></div>
+  <button class="gamma" onclick="playGamma()">▶ Гамма до-ре-ми-фа-соль-ля-си ↑↓</button>
   <div class="pad"></div>
 </div>
 
@@ -178,12 +155,27 @@ body{
 
 <!-- TECH -->
 <div class="page" id="pgTech">
+  <div class="shead">⏱️ Режим (сказала Татьяна)</div>
+  <div class="rule info">
+    <b>5 раз в неделю.</b> Дома 20-40 мин: распевка 5-7 упражнений + песня.<br>
+    <b>Утром</b>, желудок не набитый. За 20 мин до пения и во время — не пить.<br>
+    <b>Сидя в кресле</b> — голова может кружиться от кислорода, это норма.<br>
+    <span class="ok">✓ пресс/живот устал после = занимался хорошо</span><br>
+    <span class="warn">✕ хрип = сразу стоп, хрипеть нельзя</span><br>
+    <b>Раз в неделю</b> — видео с минусовкой, сравнить с прошлым.
+  </div>
+  <div class="shead">🎯 Главный диагноз</div>
+  <div class="rule info">В ноты попадаешь — это опыт, придёт само. Главная работа — <b>ЗАЖИМЫ</b> (психологические). Голос тихий/зажатый «как росток из-под бетона». Разреши себе ошибаться: «я учусь, не обязан уметь» → страх уходит → зажим уходит.</div>
+  <div class="shead">🎬 Контроль дома</div>
+  <div class="rule info"><b>Книжка на живот лёжа:</b> вдох — книжка поднимается, значит дышишь животом.<br><b>Видео с минусовкой:</b> «Березы» + «Карие глаза». Сам отмечай где зажато → покажешь Татьяне → вместе смотрите разницу.</div>
+  <div class="shead" style="margin-top:6px">📖 Все упражнения подробно</div>
   <div id="techList"></div>
   <div class="pad"></div>
 </div>
 
 <div class="tabs">
   <div class="tab act" data-p="pgToday" onclick="tab(this)"><span class="i">🎯</span>Сегодня</div>
+  <div class="tab" data-p="pgPiano" onclick="tab(this)"><span class="i">🎹</span>Пиано</div>
   <div class="tab" data-p="pgJournal" onclick="tab(this)"><span class="i">📅</span>Журнал</div>
   <div class="tab" data-p="pgTech" onclick="tab(this)"><span class="i">📖</span>Техника</div>
 </div>
@@ -192,80 +184,92 @@ body{
 const BLOCKS = [
   { id:'razm', emoji:'🔥', title:'Разминка', min:4,
     ex:[
-      {t:'Шея + плечи', m:2, d:'Покрути голову и плечи. Согрей мышцы.'},
-      {t:'Дыхание животом', m:2, d:'Рука на живот. Вдох носом → живот вперёд, плечи стоят. Выдох ртом.'},
+      {t:'Шея + плечи', m:2, d:'Покрути голову и плечи, разомни. Голос «спит» — согреть мышцы, чтоб нигде не зажимало.'},
+      {t:'Дыхание животом', m:2, d:'Рука на живот (или книжка лёжа). Вдох носом → живот вперёд пузырём, плечи и грудь стоят. Выдох ртом. Мозг думает ТОЛЬКО про живот.'},
     ]},
-  { id:'dyh', emoji:'🫁', title:'Дыхание + Губы', min:7,
+  { id:'dyh', emoji:'🫁', title:'Дыхание + Губы', min:8,
     ex:[
-      {t:'Губы «лошадь» бр-р-р', m:3, d:'Отпусти губы → выдох → вибрируют сами. Тяни долго, интонация вверх.'},
-      {t:'Свечка', m:2, d:'Губы щёлочкой, ладонь перед ртом. Дуй непрерывно, воздух холодный. Пламя не гаснет.'},
-      {t:'Задержка максимум', m:2, d:'Вдох по максимуму → задержи как можешь → выдох до нуля.'},
+      {t:'Губы «лошадь» бр-р-р', m:3, d:'Отпусти губы полностью (не дуй, не артикулируй) → выдох → вибрируют сами. Интонация вверх как взлетающий самолёт. Тяни сколько хватает воздуха.'},
+      {t:'Свечка', m:2, d:'Губы щёлочкой (не трубочкой), ладонь перед ртом. Дуй непрерывно, воздух холодный. Струя то слабее то сильнее — контроль. Пламя колышется, не гаснет.'},
+      {t:'Задержка «максимум»', m:2, d:'Вдох по максимуму → задержи максимально долго → выдох до нуля. Расслабляет связки.'},
+      {t:'Вакуум', m:1, d:'Выдохни воздух ПОЛНОСТЬЮ, до нуля. Почувствуй как втягивается живот.'},
+    ]},
+  { id:'noty', emoji:'🎹', title:'Ноты + инструмент', min:13, piano:true,
+    ex:[
+      {t:'Тётя-дя-дя по нотам', m:2, d:'Слог ритмично по клавишам (вкладка Пиано), равномерно как шаг. НЕ тормози даже если мимо ноты. Потом октава выше и ниже.'},
+      {t:'Ма — слияние с нотой', m:2, d:'Жми ноту на пиано, пой «Ма» низко и бархатно. Слей голос с нотой инструмента, попади в любой октаве. Вибрация в «лунке» (низ живота).'},
+      {t:'У-у-у по ступенькам', m:2, d:'Вверх по нотам беспрерывно, шаг за шагом. Успевай взять воздух между ступеньками. 3 раза вверх и обратно.'},
+      {t:'Гамма до-ре-ми туда-обратно', m:3, d:'Пой гамму по клавишам вверх и вниз. Мозг запоминает как звучит каждая нота. На «си» большой скачок — не прерывай, один вдох.'},
+      {t:'Зевок закрытым ртом → нота', m:2, d:'Зевни с закрытыми губами (как француз) → поймай: мягкое нёбо вверх, корень языка вниз → на этом ощущении открой рот и дай ноту.'},
+      {t:'Закрытый рот → открыть', m:2, d:'Мурчишь мелодию закрытым ртом → в какой-то момент открываешь рот, та же мелодия. Воздух не уходит наверх, вдох между.'},
     ]},
   { id:'press', emoji:'💪', title:'Пресс + Резонанс', min:6,
     ex:[
-      {t:'Пчёлка В-В-В', m:2, d:'Зубы как англ. V, жужжи, звук на зубах. Живот ходит туда-сюда.'},
-      {t:'А-А-А на пресс', m:2, d:'Садись на ноту как на фитбол. Наседаешь на пресс = громче.'},
-      {t:'Ми-и-Ма-а черпак', m:2, d:'Живот черпает как черпак воду из кастрюли. На пресс.'},
+      {t:'Пчёлка В-В-В', m:2, d:'Зубы как англ. V, жужжи, звук на зубах. ПРЕСС работает, живот ходит туда-сюда. На дыхание, не на голос.'},
+      {t:'А-А-А на пресс', m:2, d:'Садись на ноту как на фитбол, можно приседать. Смех животом как Санта/Карабас. Наседаешь на пресс = громче и мощнее. Мощность голоса = дыхание.'},
+      {t:'Ми-и-Ма-а черпак', m:2, d:'Живот черпает как черпак воду из кастрюли — крючок внутри. На дыхание + пресс, медленно.'},
     ]},
-  { id:'art', emoji:'👅', title:'Артикуляция', min:3,
+  { id:'art', emoji:'👅', title:'Артикуляция', min:5,
     ex:[
-      {t:'Лей-лей-лей', m:2, d:'Мелодия вверх-вниз ступеньками. Губа приоткрыта, зубы видны.'},
-      {t:'Бри-бра-бри-бра', m:1, d:'Слог быстро, чётко. Не тормози.'},
+      {t:'Е-е тянуть', m:2, d:'Верхняя губа приоткрыта, зубы видны. «Труба, но не агрессивная» = улыбка + удивление + зевок. Как будто хотел сказать, но замолчал → воздух вперёд.'},
+      {t:'Лей-лей-лей', m:2, d:'Мелодия вверх-вниз ступеньками. Лечит вялый язык. + скороговорки.'},
+      {t:'Бри-бра-бри-бра', m:1, d:'Слог быстро и чётко, на артикуляцию + дыхание. Не тормози.'},
+    ]},
+  { id:'podacha', emoji:'🎭', title:'Лицо + подача', min:8,
+    ex:[
+      {t:'Улыбка + удивление', m:2, d:'Пой с улыбкой, брови вверх. Фраза-настрой: «как прекрасен этот мир». Даже грустная песня = оскал, улыбка держится. Довести до автомата.'},
+      {t:'Челюсть вниз, рот максимум', m:1, d:'Нижняя челюсть опускается вниз, верх НЕ двигается. Открывай рот максимально (прикус) → выплёскивай громкий красивый звук. Губы трубочкой вперёд, зубы видны — не «лягушачье».'},
+      {t:'Слог «Ми» — на зубах', m:2, d:'Воздух идёт ОТ ЖИВОТА (не из горла), звук на зубах, лицо вперёд — будто за макушку привязали к ёлке. Мощно, «соловей-разбойник всех врагов сдуть».'},
+      {t:'С→З звонкость + убрать нос', m:2, d:'Дай согласной завибрировать: «ссс» → «ззз». Гнусавость: зажми нос → пой так, чтобы нос НЕ влиял на звук.'},
+      {t:'Ударения громче/тише', m:1, d:'ТвАй кАрие глазА — безударное тише, ударное громче. «На блюдечке выкладывать каждое слово», бережно.'},
     ]},
   { id:'song', emoji:'🎵', title:'Песня «Березы»', min:5,
     ex:[
-      {t:'Проговори слова', m:2, d:'Сначала просто проговори текст как в разговоре. Улыбка + удивление.'},
-      {t:'Спой с минусовкой', m:3, d:'Бережно, вкусно, каждое слово. Пой будто девочке в зале.'},
+      {t:'Проговори слова', m:2, d:'Сначала просто проговори текст как в разговоре — та же интонация и ритм. Потом распевнее. Разговорная, БЕЗ зажимов — начинай с неё.'},
+      {t:'Спой с минусовкой + видео', m:3, d:'Бережно, «на блюдечке каждое слово», вкусно. Пой будто девочке в зале. Сними видео, отметь где зажато. Потом «Карие глаза» + любая 3-я.'},
+    ]},
+  { id:'relax', emoji:'🧘', title:'Расслабление связок', min:3,
+    ex:[
+      {t:'Потрясти руки-ноги', m:1, d:'Лёжа: руки и ноги вверх, потряси (лимфодренаж). Расслабляет после нагрузки.'},
+      {t:'Фальцет-визг тихо', m:2, d:'Тихий высокий визг-фальцет — не связками, «где-то вверху». Убирает зажимы. После пения/караоке — обязательно.'},
     ]},
 ];
-// уникальный id каждому упражнению — иначе одна галка = все галки
 BLOCKS.forEach(b=>b.ex.forEach((e,i)=>e.id=b.id+'_'+i));
+const TOTMIN=BLOCKS.reduce((s,b)=>s+b.min,0);
+document.getElementById('progH2').textContent=`Рутина сегодня · ~${TOTMIN} мин`;
 
 const todayKey = () => { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
 let checks = JSON.parse(localStorage.vk_checks || '{}');
 let checksDate = localStorage.vk_checksDate || '';
 let log = JSON.parse(localStorage.vk_log || '[]');
 if(checksDate !== todayKey()){ checks={}; checksDate=todayKey(); persist(); }
-
-function persist(){
-  localStorage.vk_checks = JSON.stringify(checks);
-  localStorage.vk_checksDate = checksDate;
-  localStorage.vk_log = JSON.stringify(log);
-}
+function persist(){ localStorage.vk_checks=JSON.stringify(checks); localStorage.vk_checksDate=checksDate; localStorage.vk_log=JSON.stringify(log); }
 
 function render(){
-  const wrap = document.getElementById('blocks');
-  wrap.innerHTML='';
-  let doneCount=0, total=0;
+  const wrap=document.getElementById('blocks'); wrap.innerHTML='';
+  let doneCount=0,total=0;
   BLOCKS.forEach(b=>{
-    const bdone = b.ex.every(e=>checks[e.id]);
-    const h=document.createElement('div');
-    h.className='shead'+(bdone?' done':'');
-    h.innerHTML=`<span>${bdone?'✅':b.emoji} ${b.title}</span><span class="m">${b.min} мин</span>`;
+    const bdone=b.ex.every(e=>checks[e.id]);
+    const h=document.createElement('div'); h.className='shead'+(bdone?' done':'');
+    h.innerHTML=`<span>${bdone?'✅':b.emoji} ${b.title}${b.piano?' <span class="tag">🎹 пиано</span>':''}</span><span class="m">${b.min} мин</span>`;
     wrap.appendChild(h);
     const g=document.createElement('div'); g.className='group';
     b.ex.forEach(e=>{
       const on=!!checks[e.id]; total++; if(on)doneCount++;
-      const r=document.createElement('div');
-      r.className='row'+(on?' on':'');
-      r.onclick=()=>check(e.id);
-      r.innerHTML=`<div class="cb ${on?'on':''}">${on?'✓':''}</div>
-        <div class="txt ${on?'on':''}"><b>${e.t}</b><p>${e.d}</p></div>
-        <span class="min">${e.m}м</span>`;
+      const r=document.createElement('div'); r.className='row'+(on?' on':''); r.onclick=()=>check(e.id);
+      r.innerHTML=`<div class="cb ${on?'on':''}">${on?'✓':''}</div><div class="txt ${on?'on':''}"><b>${e.t}</b><p>${e.d}</p></div><span class="min">${e.m}м</span>`;
       g.appendChild(r);
     });
     wrap.appendChild(g);
   });
-  const pct = total?Math.round(doneCount/total*100):0;
+  const pct=total?Math.round(doneCount/total*100):0;
   document.getElementById('pctTxt').textContent=pct+'%';
   document.getElementById('barFill').style.width=pct+'%';
-  const sb=document.getElementById('saveBtn');
-  const already=log.some(l=>l.date===todayKey());
+  const sb=document.getElementById('saveBtn'); const already=log.some(l=>l.date===todayKey());
   if(already){ sb.classList.add('saved'); sb.textContent='✓ Сегодня записано'; }
   else{ sb.classList.remove('saved'); sb.textContent='Записать занятие'; }
   renderStats();
 }
-
 function check(id){ checks[id]=!checks[id]; persist(); render(); }
 
 function saveDay(){
@@ -281,52 +285,61 @@ function saveDay(){
   persist(); render(); renderLog();
   document.querySelector('.tab[data-p="pgJournal"]').click();
 }
-
 function renderLog(){
   const el=document.getElementById('logList');
   if(!log.length){ el.innerHTML='<div class="empty">Пусто. Позанимайся и нажми «Записать занятие».</div>'; return; }
   el.innerHTML='<div class="group">'+log.map((l,i)=>{
     const d=l.date.slice(8,10)+'.'+l.date.slice(5,7);
-    const dots='●'.repeat(l.blocks)+'○'.repeat(5-l.blocks);
-    return `<div class="jrow"><span class="d">${d}</span><span class="dots">${dots}</span>
-      <span class="mm">${l.min}м</span><span class="del" onclick="delLog(${i})">⊗</span>
-      ${l.feel?`<span class="fl">${l.feel}</span>`:''}</div>`;
+    const dots='●'.repeat(l.blocks)+'○'.repeat(BLOCKS.length-l.blocks);
+    return `<div class="jrow"><span class="d">${d}</span><span class="dots">${dots}</span><span class="mm">${l.min}м</span><span class="del" onclick="delLog(${i})">⊗</span>${l.feel?`<span class="fl">${l.feel}</span>`:''}</div>`;
   }).join('')+'</div>';
 }
 function delLog(i){ if(confirm('Удалить запись?')){ log.splice(i,1); persist(); render(); renderLog(); } }
-
 function renderStats(){
   document.getElementById('stTotal').textContent=log.length;
   document.getElementById('stMin').textContent=log.reduce((s,l)=>s+l.min,0);
-  let streak=0; let d=new Date(); const set=new Set(log.map(l=>l.date));
-  for(;;){
-    const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+  let streak=0,d=new Date(); const set=new Set(log.map(l=>l.date));
+  for(;;){ const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
     if(set.has(k)){ streak++; d.setDate(d.getDate()-1); }
-    else if(k===todayKey()){ d.setDate(d.getDate()-1); }
-    else break;
-  }
+    else if(k===todayKey()){ d.setDate(d.getDate()-1); } else break; }
   document.getElementById('stStreak').textContent=streak;
 }
-
 function renderTech(){
-  const el=document.getElementById('techList');
-  el.innerHTML=BLOCKS.map(b=>`<div class="shead">${b.emoji} ${b.title}<span class="m">${b.min} мин</span></div>
-    <div class="group">${b.ex.map(e=>`<div class="row" style="cursor:default"><div class="txt"><b>${e.t}</b><p>${e.d}</p></div><span class="min">${e.m}м</span></div>`).join('')}</div>`).join('');
+  document.getElementById('techList').innerHTML=BLOCKS.map(b=>`<div class="shead">${b.emoji} ${b.title}<span class="m">${b.min} мин</span></div><div class="group">${b.ex.map(e=>`<div class="row" style="cursor:default"><div class="txt"><b>${e.t}</b><p>${e.d}</p></div><span class="min">${e.m}м</span></div>`).join('')}</div>`).join('');
 }
-
 function tab(el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('act'));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('act'));
-  el.classList.add('act');
-  document.getElementById(el.dataset.p).classList.add('act');
-  window.scrollTo(0,0);
+  el.classList.add('act'); document.getElementById(el.dataset.p).classList.add('act'); window.scrollTo(0,0);
 }
 function resetAll(){ if(confirm('Удалить ВСЕ данные и историю?')){ localStorage.clear(); location.reload(); } }
 
-const dw=['вс','пн','вт','ср','чт','пт','сб'], nd=new Date();
-document.getElementById('dateSub').textContent=
-  `${dw[nd.getDay()]}, ${nd.getDate()}.${String(nd.getMonth()+1).padStart(2,'0')} · лучше 10 мин каждый день, чем час раз в неделю`;
-render(); renderLog(); renderTech();
+/* ===== ПИАНО (Web Audio) ===== */
+const NOTES=[['до','C',261.63],['ре','D',293.66],['ми','E',329.63],['фа','F',349.23],['соль','G',392.00],['ля','A',440.00],['си','B',493.88],['до↑','C',523.25]];
+let oct=1, actx=null;
+function ac(){ if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)(); if(actx.state==='suspended')actx.resume(); return actx; }
+function tone(freq,dur=0.7){
+  const c=ac(), o=c.createOscillator(), g=c.createGain();
+  o.type='triangle'; o.frequency.value=freq;
+  o.connect(g); g.connect(c.destination);
+  const t=c.currentTime;
+  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(0.35,t+0.02);
+  g.gain.setValueAtTime(0.35,t+dur-0.1); g.gain.linearRampToValueAtTime(0,t+dur);
+  o.start(t); o.stop(t+dur);
+}
+function setOct(el){ oct=parseFloat(el.dataset.o); document.querySelectorAll('.octbtn').forEach(b=>b.classList.remove('act')); el.classList.add('act'); }
+function renderKeys(){
+  document.getElementById('keys').innerHTML=NOTES.map((n,i)=>`<button class="key" id="k${i}" onclick="hit(${i})"><span class="note">${n[0]}</span><span class="lat">${n[1]}</span></button>`).join('');
+}
+function hit(i){ tone(NOTES[i][2]*oct); const k=document.getElementById('k'+i); k.classList.add('play'); setTimeout(()=>k.classList.remove('play'),200); }
+function playGamma(){
+  const seq=[0,1,2,3,4,5,6,7,6,5,4,3,2,1,0]; let j=0;
+  (function step(){ if(j>=seq.length)return; hit(seq[j]); j++; setTimeout(step,420); })();
+}
+
+const dw=['вс','пн','вт','ср','чт','пт','сб'],nd=new Date();
+document.getElementById('dateSub').textContent=`${dw[nd.getDay()]}, ${nd.getDate()}.${String(nd.getMonth()+1).padStart(2,'0')} · лучше 10 мин каждый день, чем час раз в неделю`;
+render(); renderLog(); renderTech(); renderKeys();
 </script>
 </body>
 </html>
