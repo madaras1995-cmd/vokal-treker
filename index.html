@@ -2,242 +2,229 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#030B18">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#F2F2F7">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Вокал">
-<title>🎤 Вокал-трекер</title>
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23030B18'/%3E%3Ctext y='72' x='50' font-size='60' text-anchor='middle'%3E🎤%3C/text%3E%3C/svg%3E">
-<link rel="manifest" href="data:application/json,%7B%22name%22%3A%22%D0%92%D0%BE%D0%BA%D0%B0%D0%BB-%D1%82%D1%80%D0%B5%D0%BA%D0%B5%D1%80%22%2C%22short_name%22%3A%22%D0%92%D0%BE%D0%BA%D0%B0%D0%BB%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%23030B18%22%2C%22theme_color%22%3A%22%23030B18%22%2C%22icons%22%3A%5B%5D%7D">
+<title>🎤 Вокал</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23007AFF'/%3E%3Ctext y='72' x='50' font-size='58' text-anchor='middle'%3E🎤%3C/text%3E%3C/svg%3E">
 <style>
 :root{
-  --bg:#030B18; --card:#0A1628; --card2:#0F1E36;
-  --blue:#2563EB; --cyan:#06B6D4; --green:#2ECC40;
-  --red:#FF4136; --yellow:#FFD700; --txt:#E8EEF7; --dim:#7A8AA3;
-  --line:rgba(255,255,255,.07);
+  --bg:#F2F2F7; --card:#FFFFFF; --sep:rgba(60,60,67,.14);
+  --txt:#000; --dim:#8A8A8E; --dim2:#6D6D72;
+  --blue:#007AFF; --green:#34C759; --red:#FF3B30; --orange:#FF9500;
+  --fill:#787880;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{background:var(--bg)}
 body{
-  background:var(--bg);color:var(--txt);
-  font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif;
-  padding:16px 14px 90px;max-width:600px;margin:0 auto;
+  color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','SF Pro Display','Segoe UI',Roboto,sans-serif;
+  padding:0 0 calc(70px + env(safe-area-inset-bottom));
   -webkit-font-smoothing:antialiased;
+  max-width:640px;margin:0 auto;
 }
-h1{font-size:22px;font-weight:800;margin-bottom:2px;letter-spacing:-.5px}
-.sub{color:var(--dim);font-size:13px;margin-bottom:16px}
+.wrap{padding:0 16px}
 
-/* streak */
-.streak{
-  display:flex;gap:10px;margin-bottom:18px;
-}
+/* large title iOS */
+.ltitle{padding:8px 16px 2px;font-size:34px;font-weight:800;letter-spacing:.37px}
+.lsub{padding:0 16px 14px;color:var(--dim2);font-size:14px;line-height:1.35}
+
+/* stats row */
+.stats{display:flex;gap:10px;padding:0 16px 18px}
 .stat{
-  flex:1;background:var(--card);border:1px solid var(--line);
-  border-radius:14px;padding:12px 10px;text-align:center;
+  flex:1;background:var(--card);border-radius:14px;padding:14px 8px;text-align:center;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
 }
-.stat b{display:block;font-size:24px;font-weight:800;line-height:1}
-.stat span{font-size:11px;color:var(--dim);margin-top:4px;display:block}
+.stat b{display:block;font-size:26px;font-weight:800;line-height:1;letter-spacing:-.5px}
+.stat span{font-size:11px;color:var(--dim);margin-top:5px;display:block}
+.stat.s1 b{color:var(--orange)} .stat.s2 b{color:var(--blue)} .stat.s3 b{color:var(--green)}
 
-/* progress ring today */
-.today-head{
-  display:flex;align-items:center;justify-content:space-between;
-  margin:6px 2px 10px;
-}
-.today-head h2{font-size:16px;font-weight:700}
-.pct{font-size:13px;color:var(--cyan);font-weight:700}
-.bar{height:7px;background:var(--card2);border-radius:6px;overflow:hidden;margin-bottom:18px}
-.bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--blue),var(--cyan));transition:width .35s}
+/* progress */
+.prog{padding:0 16px 6px;display:flex;justify-content:space-between;align-items:baseline}
+.prog h2{font-size:15px;font-weight:700;color:var(--dim2)}
+.prog .p{font-size:15px;font-weight:700;color:var(--blue)}
+.barbox{padding:0 16px 20px}
+.bar{height:8px;background:#E4E4E9;border-radius:8px;overflow:hidden}
+.bar>i{display:block;height:100%;width:0;background:var(--green);border-radius:8px;transition:width .35s}
 
-/* block */
-.block{
-  background:var(--card);border:1px solid var(--line);
-  border-radius:16px;margin-bottom:12px;overflow:hidden;
+/* section header iOS */
+.shead{
+  padding:14px 16px 6px;font-size:13px;font-weight:600;color:var(--dim);
+  text-transform:uppercase;letter-spacing:.4px;display:flex;justify-content:space-between;align-items:center;
 }
-.block.done{border-color:rgba(46,204,64,.4)}
-.bhead{
-  display:flex;align-items:center;gap:10px;padding:14px 14px;
-  cursor:pointer;user-select:none;
+.shead .m{color:var(--dim);font-weight:600;text-transform:none;letter-spacing:0}
+.shead.done{color:var(--green)}
+
+/* grouped card */
+.group{
+  background:var(--card);border-radius:14px;margin:0 16px 4px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(0,0,0,.04);
 }
-.bemoji{font-size:22px}
-.btitle{flex:1}
-.btitle b{font-size:15px;font-weight:700;display:block}
-.btitle small{color:var(--dim);font-size:12px}
-.bmin{
-  background:var(--card2);color:var(--cyan);font-size:12px;font-weight:700;
-  padding:4px 9px;border-radius:20px;white-space:nowrap;
+.row{
+  display:flex;align-items:center;gap:13px;padding:12px 15px;
+  position:relative;cursor:pointer;transition:background .12s;
 }
-.chev{color:var(--dim);transition:transform .25s;font-size:13px}
-.block.open .chev{transform:rotate(90deg)}
-.body{max-height:0;overflow:hidden;transition:max-height .3s ease}
-.block.open .body{max-height:900px}
-.ex{
-  display:flex;gap:12px;padding:12px 14px;border-top:1px solid var(--line);
-  align-items:flex-start;
+.row:active{background:#E9E9EE}
+.row+.row::before{
+  content:'';position:absolute;top:0;left:51px;right:0;height:1px;background:var(--sep);
 }
+/* iOS circle checkbox */
 .cb{
-  flex-shrink:0;width:26px;height:26px;border-radius:8px;
-  border:2px solid var(--dim);margin-top:1px;cursor:pointer;
+  flex-shrink:0;width:25px;height:25px;border-radius:50%;
+  border:2px solid #C7C7CC;background:transparent;
   display:flex;align-items:center;justify-content:center;
-  font-size:15px;transition:.15s;
+  transition:.18s;font-size:15px;color:#fff;
 }
-.cb.on{background:var(--green);border-color:var(--green);color:#031}
-.extxt{flex:1}
-.extxt b{font-size:14px;font-weight:600;display:block;margin-bottom:2px}
-.extxt.on b{text-decoration:line-through;color:var(--dim)}
-.extxt p{font-size:12.5px;color:var(--dim);line-height:1.45}
-.exmin{font-size:11px;color:var(--cyan);font-weight:700;margin-left:6px}
+.cb.on{background:var(--green);border-color:var(--green)}
+.txt{flex:1;min-width:0}
+.txt b{font-size:16px;font-weight:500;display:block;line-height:1.25;letter-spacing:-.2px}
+.txt p{font-size:13.5px;color:var(--dim2);line-height:1.35;margin-top:2px}
+.txt.on b{color:var(--dim);text-decoration:line-through}
+.txt.on p{color:#B8B8BD}
+.min{flex-shrink:0;font-size:13px;font-weight:600;color:var(--blue);align-self:flex-start;margin-top:1px}
+.row.on .min{color:var(--dim)}
 
-/* rules */
+/* rule banner */
 .rule{
-  background:linear-gradient(135deg,rgba(37,99,235,.12),rgba(6,182,212,.08));
-  border:1px solid rgba(37,99,235,.3);border-radius:14px;
-  padding:13px 15px;margin-bottom:18px;font-size:13px;line-height:1.6;
+  background:var(--card);border-radius:14px;margin:0 16px 4px;padding:14px 16px;
+  font-size:14px;line-height:1.5;box-shadow:0 1px 2px rgba(0,0,0,.04);
 }
-.rule b{color:var(--cyan)}
-.warn{color:var(--red);font-weight:700}
-.ok{color:var(--green);font-weight:700}
+.rule .k{font-weight:700;color:var(--blue)}
+.rule .warn{color:var(--red);font-weight:600}
+.rule .ok{color:var(--green);font-weight:600}
+.rule .div{height:1px;background:var(--sep);margin:9px 0}
+
+/* button */
+.btn{
+  display:block;width:calc(100% - 32px);margin:16px 16px 4px;
+  background:var(--green);color:#fff;border:none;
+  padding:15px;border-radius:14px;font-size:17px;font-weight:600;
+  cursor:pointer;font-family:inherit;transition:.12s;
+}
+.btn:active{opacity:.7}
+.btn.saved{background:var(--card);color:var(--dim);box-shadow:0 1px 2px rgba(0,0,0,.04)}
 
 /* journal */
-.jbtn{
-  width:100%;background:var(--green);color:#031;border:none;
-  padding:15px;border-radius:14px;font-size:16px;font-weight:800;
-  cursor:pointer;margin:8px 0 16px;
-}
-.jbtn:active{transform:scale(.98)}
-.jbtn.saved{background:var(--card);color:var(--dim);border:1px solid var(--line)}
 .feel{
-  width:100%;background:var(--card);border:1px solid var(--line);
-  border-radius:12px;color:var(--txt);padding:12px;font-size:14px;
-  font-family:inherit;resize:none;margin-bottom:10px;
+  width:calc(100% - 32px);margin:0 16px 12px;background:var(--card);
+  border:none;border-radius:14px;color:var(--txt);padding:14px;font-size:16px;
+  font-family:inherit;resize:none;box-shadow:0 1px 2px rgba(0,0,0,.04);
 }
 .feel::placeholder{color:var(--dim)}
+.jrow{display:flex;align-items:center;gap:12px;padding:13px 15px;position:relative;cursor:default}
+.jrow+.jrow::before{content:'';position:absolute;top:0;left:15px;right:0;height:1px;background:var(--sep)}
+.jrow .d{font-weight:700;min-width:48px;font-size:15px}
+.jrow .dots{flex:1;letter-spacing:3px;font-size:13px;color:var(--green)}
+.jrow .mm{color:var(--blue);font-size:13px;font-weight:600}
+.jrow .del{color:#C7C7CC;font-size:20px;padding:0 2px;cursor:pointer}
+.jrow .fl{flex-basis:100%;color:var(--dim2);font-size:13px;padding-left:60px;margin-top:-2px}
+.empty{color:var(--dim);font-size:14px;text-align:center;padding:30px 16px}
+.reset{color:var(--red);font-size:14px;text-align:center;margin:24px 0 0;cursor:pointer}
 
-.log{margin-top:8px}
-.logrow{
-  display:flex;align-items:center;gap:10px;padding:11px 13px;
-  background:var(--card);border:1px solid var(--line);
-  border-radius:12px;margin-bottom:8px;font-size:13px;
-}
-.logrow .d{font-weight:700;min-width:52px}
-.logrow .checks{color:var(--green);letter-spacing:2px;flex:1}
-.logrow .m{color:var(--cyan);font-size:12px;font-weight:700}
-.logrow .f{color:var(--dim);font-size:12px;flex-basis:100%;margin-top:2px}
-.del{color:var(--dim);cursor:pointer;font-size:16px;padding:0 4px}
-
-h2.sec{font-size:16px;font-weight:700;margin:24px 2px 12px}
-.empty{color:var(--dim);font-size:13px;text-align:center;padding:20px}
-
-/* tabs */
+/* tab bar iOS */
 .tabs{
-  position:fixed;bottom:0;left:0;right:0;background:rgba(3,11,24,.92);
-  backdrop-filter:blur(14px);border-top:1px solid var(--line);
-  display:flex;padding:8px 0 calc(8px + env(safe-area-inset-bottom));
-  z-index:50;
+  position:fixed;bottom:0;left:0;right:0;
+  background:rgba(249,249,249,.94);backdrop-filter:saturate(180%) blur(20px);
+  -webkit-backdrop-filter:saturate(180%) blur(20px);
+  border-top:.5px solid rgba(0,0,0,.14);
+  display:flex;padding-bottom:env(safe-area-inset-bottom);z-index:50;
+  max-width:640px;margin:0 auto;
 }
-.tab{
-  flex:1;text-align:center;color:var(--dim);font-size:11px;
-  padding:6px;cursor:pointer;font-weight:600;
-}
-.tab .i{font-size:20px;display:block;margin-bottom:2px}
-.tab.act{color:var(--cyan)}
-.page{display:none}
-.page.act{display:block}
-.reset{
-  color:var(--dim);font-size:12px;text-align:center;margin-top:20px;
-  text-decoration:underline;cursor:pointer;
-}
+.tab{flex:1;text-align:center;color:var(--dim);font-size:10px;padding:7px 0 5px;cursor:pointer;font-weight:500}
+.tab .i{font-size:23px;display:block;margin-bottom:1px}
+.tab.act{color:var(--blue)}
+.page{display:none} .page.act{display:block}
+.pad{height:8px}
 </style>
 </head>
 <body>
 
-<h1>🎤 Вокал-трекер</h1>
-<p class="sub" id="dateSub"></p>
+<div class="ltitle">Вокал</div>
+<div class="lsub" id="dateSub"></div>
 
-<div class="streak">
-  <div class="stat"><b id="stStreak">0</b><span>дней подряд</span></div>
-  <div class="stat"><b id="stTotal">0</b><span>всего занятий</span></div>
-  <div class="stat"><b id="stMin">0</b><span>минут всего</span></div>
+<div class="stats">
+  <div class="stat s1"><b id="stStreak">0</b><span>дней подряд</span></div>
+  <div class="stat s2"><b id="stTotal">0</b><span>занятий</span></div>
+  <div class="stat s3"><b id="stMin">0</b><span>минут</span></div>
 </div>
 
-<!-- PAGE: TODAY -->
+<!-- TODAY -->
 <div class="page act" id="pgToday">
-
   <div class="rule">
-    <b>ГЛАВНОЕ:</b> Вдох = живот ВПЕРЁД (плечи стоят). Пою = живот МЕДЛЕННО назад = опора. Горло расслаблено всегда.<br>
-    <span class="ok">✅ пресс устал = хорошо</span> · <span class="warn">⛔ хрип = стоп сразу</span>
+    <span class="k">Вдох</span> = живот вперёд (плечи стоят). <span class="k">Пою</span> = живот медленно назад = опора. Горло расслаблено.
+    <div class="div"></div>
+    <span class="ok">✓ пресс устал = хорошо</span> · <span class="warn">✕ хрип = стоп сразу</span>
   </div>
 
-  <div class="today-head">
-    <h2>Рутина сегодня · ~25 мин</h2>
-    <span class="pct" id="pctTxt">0%</span>
-  </div>
-  <div class="bar"><i id="barFill"></i></div>
+  <div class="prog"><h2>Рутина сегодня · ~25 мин</h2><span class="p" id="pctTxt">0%</span></div>
+  <div class="barbox"><div class="bar"><i id="barFill"></i></div></div>
 
   <div id="blocks"></div>
-
-  <button class="jbtn" id="saveBtn" onclick="saveDay()">Записать занятие в журнал →</button>
-
+  <button class="btn" id="saveBtn" onclick="saveDay()">Записать занятие</button>
+  <div class="pad"></div>
 </div>
 
-<!-- PAGE: JOURNAL -->
+<!-- JOURNAL -->
 <div class="page" id="pgJournal">
-  <h2 class="sec">📅 Журнал занятий</h2>
-  <textarea class="feel" id="feelTxt" rows="2" placeholder="Ощущения: живот устал? хрип был? что получилось?"></textarea>
-  <div class="log" id="logList"></div>
+  <div class="shead">Как прошло</div>
+  <textarea class="feel" id="feelTxt" rows="2" placeholder="Живот устал? хрип был? что получилось?"></textarea>
+  <div class="shead">История</div>
+  <div id="logList"></div>
   <div class="reset" onclick="resetAll()">Сбросить все данные</div>
+  <div class="pad"></div>
 </div>
 
-<!-- PAGE: TECH -->
+<!-- TECH -->
 <div class="page" id="pgTech">
-  <h2 class="sec">📝 Техника подробно</h2>
   <div id="techList"></div>
+  <div class="pad"></div>
 </div>
 
 <div class="tabs">
   <div class="tab act" data-p="pgToday" onclick="tab(this)"><span class="i">🎯</span>Сегодня</div>
   <div class="tab" data-p="pgJournal" onclick="tab(this)"><span class="i">📅</span>Журнал</div>
-  <div class="tab" data-p="pgTech" onclick="tab(this)"><span class="i">📝</span>Техника</div>
+  <div class="tab" data-p="pgTech" onclick="tab(this)"><span class="i">📖</span>Техника</div>
 </div>
 
 <script>
-// ===== ДАННЫЕ УПРАЖНЕНИЙ =====
 const BLOCKS = [
-  { id:'razm', emoji:'🔥', title:'Разминка', min:4, sub:'голос спит — расшевелить',
+  { id:'razm', emoji:'🔥', title:'Разминка', min:4,
     ex:[
       {t:'Шея + плечи', m:2, d:'Покрути голову и плечи. Согрей мышцы.'},
-      {t:'Дыхание животом', m:2, d:'Рука на живот. Вдох носом → живот вперёд пузырём, плечи НЕ двигаются. Выдох ртом.'},
+      {t:'Дыхание животом', m:2, d:'Рука на живот. Вдох носом → живот вперёд, плечи стоят. Выдох ртом.'},
     ]},
-  { id:'dyh', emoji:'🫁', title:'Дыхание + Губы', min:7, sub:'база мощности',
+  { id:'dyh', emoji:'🫁', title:'Дыхание + Губы', min:7,
     ex:[
-      {t:'🐴 Губы «лошадь» бр-р-р', m:3, d:'Отпусти губы → выдох → вибрируют сами. Тяни сколько хватает воздуха, интонация вверх.'},
-      {t:'🕯️ Свечка', m:2, d:'Губы щёлочкой, ладонь перед ртом. Дуй непрерывно, воздух холодный. Пламя колышется, не гаснет.'},
-      {t:'🫁 Задержка максимум', m:2, d:'Вдох по максимуму → задержи как можешь → выдох до нуля.'},
+      {t:'Губы «лошадь» бр-р-р', m:3, d:'Отпусти губы → выдох → вибрируют сами. Тяни долго, интонация вверх.'},
+      {t:'Свечка', m:2, d:'Губы щёлочкой, ладонь перед ртом. Дуй непрерывно, воздух холодный. Пламя не гаснет.'},
+      {t:'Задержка максимум', m:2, d:'Вдох по максимуму → задержи как можешь → выдох до нуля.'},
     ]},
-  { id:'press', emoji:'💪', title:'Пресс + Резонанс', min:6, sub:'мощность = дыхание',
+  { id:'press', emoji:'💪', title:'Пресс + Резонанс', min:6,
     ex:[
-      {t:'🐝 Пчёлка В-В-В', m:2, d:'Зубы как англ. V, жужжи, звук на зубах. Живот ходит туда-сюда.'},
-      {t:'🅰️ А-А-А на пресс', m:2, d:'Садись на ноту как на фитбол. Наседаешь на пресс = громче.'},
-      {t:'🍲 Ми-и-Ма-а черпак', m:2, d:'Живот черпает как черпак воду из кастрюли. На пресс.'},
+      {t:'Пчёлка В-В-В', m:2, d:'Зубы как англ. V, жужжи, звук на зубах. Живот ходит туда-сюда.'},
+      {t:'А-А-А на пресс', m:2, d:'Садись на ноту как на фитбол. Наседаешь на пресс = громче.'},
+      {t:'Ми-и-Ма-а черпак', m:2, d:'Живот черпает как черпак воду из кастрюли. На пресс.'},
     ]},
-  { id:'art', emoji:'👅', title:'Артикуляция', min:3, sub:'лечит вялый язык',
+  { id:'art', emoji:'👅', title:'Артикуляция', min:3,
     ex:[
-      {t:'👅 Лей-лей-лей', m:2, d:'Мелодия вверх-вниз ступеньками. Губа приоткрыта, зубы видны.'},
-      {t:'🗣️ Бри-бра-бри-бра', m:1, d:'Слог быстро, чётко. Не тормози.'},
+      {t:'Лей-лей-лей', m:2, d:'Мелодия вверх-вниз ступеньками. Губа приоткрыта, зубы видны.'},
+      {t:'Бри-бра-бри-бра', m:1, d:'Слог быстро, чётко. Не тормози.'},
     ]},
-  { id:'song', emoji:'🎵', title:'Песня «Березы»', min:5, sub:'разговорная, БЕЗ зажимов',
+  { id:'song', emoji:'🎵', title:'Песня «Березы»', min:5,
     ex:[
       {t:'Проговори слова', m:2, d:'Сначала просто проговори текст как в разговоре. Улыбка + удивление.'},
       {t:'Спой с минусовкой', m:3, d:'Бережно, вкусно, каждое слово. Пой будто девочке в зале.'},
     ]},
 ];
+// уникальный id каждому упражнению — иначе одна галка = все галки
+BLOCKS.forEach(b=>b.ex.forEach((e,i)=>e.id=b.id+'_'+i));
 
-// ===== СОСТОЯНИЕ =====
-const todayKey = () => new Date().toISOString().slice(0,10);
-let checks = JSON.parse(localStorage.vk_checks || '{}');   // {exId:true} за сегодня
+const todayKey = () => { const d=new Date(); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); };
+let checks = JSON.parse(localStorage.vk_checks || '{}');
 let checksDate = localStorage.vk_checksDate || '';
-let log = JSON.parse(localStorage.vk_log || '[]');          // [{date,checks,min,feel}]
-
-// новый день → обнулить галочки
+let log = JSON.parse(localStorage.vk_log || '[]');
 if(checksDate !== todayKey()){ checks={}; checksDate=todayKey(); persist(); }
 
 function persist(){
@@ -246,112 +233,87 @@ function persist(){
   localStorage.vk_log = JSON.stringify(log);
 }
 
-// ===== РЕНДЕР РУТИНЫ =====
 function render(){
   const wrap = document.getElementById('blocks');
-  wrap.innerHTML = '';
+  wrap.innerHTML='';
   let doneCount=0, total=0;
-  BLOCKS.forEach((b,bi)=>{
-    let bdone = b.ex.every(e=>checks[e.id]);
-    const el = document.createElement('div');
-    el.className = 'block open' + (bdone?' done':'');
-    let inner = `<div class="bhead">
-      <span class="bemoji">${bdone?'✅':b.emoji}</span>
-      <div class="btitle"><b>${b.title}</b><small>${b.sub}</small></div>
-      <span class="bmin">${b.min} мин</span>
-    </div><div class="body">`;
+  BLOCKS.forEach(b=>{
+    const bdone = b.ex.every(e=>checks[e.id]);
+    const h=document.createElement('div');
+    h.className='shead'+(bdone?' done':'');
+    h.innerHTML=`<span>${bdone?'✅':b.emoji} ${b.title}</span><span class="m">${b.min} мин</span>`;
+    wrap.appendChild(h);
+    const g=document.createElement('div'); g.className='group';
     b.ex.forEach(e=>{
-      const on = !!checks[e.id];
-      total++; if(on)doneCount++;
-      inner += `<div class="ex">
-        <div class="cb ${on?'on':''}" onclick="check('${e.id}')">${on?'✓':''}</div>
-        <div class="extxt ${on?'on':''}">
-          <b>${e.t}<span class="exmin">${e.m} мин</span></b>
-          <p>${e.d}</p>
-        </div></div>`;
+      const on=!!checks[e.id]; total++; if(on)doneCount++;
+      const r=document.createElement('div');
+      r.className='row'+(on?' on':'');
+      r.onclick=()=>check(e.id);
+      r.innerHTML=`<div class="cb ${on?'on':''}">${on?'✓':''}</div>
+        <div class="txt ${on?'on':''}"><b>${e.t}</b><p>${e.d}</p></div>
+        <span class="min">${e.m}м</span>`;
+      g.appendChild(r);
     });
-    inner += `</div>`;
-    el.innerHTML = inner;
-    wrap.appendChild(el);
+    wrap.appendChild(g);
   });
-  const pct = total? Math.round(doneCount/total*100):0;
-  document.getElementById('pctTxt').textContent = pct+'%';
-  document.getElementById('barFill').style.width = pct+'%';
-  const sb = document.getElementById('saveBtn');
-  const already = log.some(l=>l.date===todayKey());
-  if(already){ sb.classList.add('saved'); sb.textContent='✅ Сегодня записано'; }
-  else{ sb.classList.remove('saved'); sb.textContent='Записать занятие в журнал →'; }
+  const pct = total?Math.round(doneCount/total*100):0;
+  document.getElementById('pctTxt').textContent=pct+'%';
+  document.getElementById('barFill').style.width=pct+'%';
+  const sb=document.getElementById('saveBtn');
+  const already=log.some(l=>l.date===todayKey());
+  if(already){ sb.classList.add('saved'); sb.textContent='✓ Сегодня записано'; }
+  else{ sb.classList.remove('saved'); sb.textContent='Записать занятие'; }
   renderStats();
 }
 
-function toggle(bi){ BLOCKS[bi]._open = !BLOCKS[bi]._open; render(); }
-function check(id){
-  checks[id] = !checks[id];
-  // не закрывать открытые блоки
-  persist(); render();
-}
+function check(id){ checks[id]=!checks[id]; persist(); render(); }
 
-// ===== ЖУРНАЛ =====
 function saveDay(){
-  const done = BLOCKS.flatMap(b=>b.ex).filter(e=>checks[e.id]);
-  if(done.length===0){ alert('Сначала отметь хоть одно упражнение'); return; }
-  const min = done.reduce((s,e)=>s+e.m,0);
-  const bdone = BLOCKS.filter(b=>b.ex.every(e=>checks[e.id])).length;
-  const feel = document.getElementById('feelTxt').value.trim();
-  const i = log.findIndex(l=>l.date===todayKey());
-  const row = {date:todayKey(), blocks:bdone, min, feel};
-  if(i>=0) log[i]=row; else log.unshift(row);
+  const done=BLOCKS.flatMap(b=>b.ex).filter(e=>checks[e.id]);
+  if(!done.length){ alert('Сначала отметь хоть одно упражнение'); return; }
+  const min=done.reduce((s,e)=>s+e.m,0);
+  const bdone=BLOCKS.filter(b=>b.ex.every(e=>checks[e.id])).length;
+  const feel=document.getElementById('feelTxt').value.trim();
+  const i=log.findIndex(l=>l.date===todayKey());
+  const row={date:todayKey(),blocks:bdone,min,feel};
+  if(i>=0)log[i]=row; else log.unshift(row);
   document.getElementById('feelTxt').value='';
   persist(); render(); renderLog();
   document.querySelector('.tab[data-p="pgJournal"]').click();
 }
 
 function renderLog(){
-  const el = document.getElementById('logList');
-  if(!log.length){ el.innerHTML='<div class="empty">Пусто. Позанимайся и нажми «Записать».</div>'; return; }
-  el.innerHTML = log.map((l,i)=>{
-    const d = l.date.slice(8,10)+'.'+l.date.slice(5,7);
-    const stars = '●'.repeat(l.blocks)+'○'.repeat(5-l.blocks);
-    return `<div class="logrow">
-      <span class="d">${d}</span>
-      <span class="checks">${stars}</span>
-      <span class="m">${l.min} мин</span>
-      <span class="del" onclick="delLog(${i})">✕</span>
-      ${l.feel?`<span class="f">💬 ${l.feel}</span>`:''}
-    </div>`;
-  }).join('');
+  const el=document.getElementById('logList');
+  if(!log.length){ el.innerHTML='<div class="empty">Пусто. Позанимайся и нажми «Записать занятие».</div>'; return; }
+  el.innerHTML='<div class="group">'+log.map((l,i)=>{
+    const d=l.date.slice(8,10)+'.'+l.date.slice(5,7);
+    const dots='●'.repeat(l.blocks)+'○'.repeat(5-l.blocks);
+    return `<div class="jrow"><span class="d">${d}</span><span class="dots">${dots}</span>
+      <span class="mm">${l.min}м</span><span class="del" onclick="delLog(${i})">⊗</span>
+      ${l.feel?`<span class="fl">${l.feel}</span>`:''}</div>`;
+  }).join('')+'</div>';
 }
 function delLog(i){ if(confirm('Удалить запись?')){ log.splice(i,1); persist(); render(); renderLog(); } }
 
-// ===== СТАТА =====
 function renderStats(){
-  document.getElementById('stTotal').textContent = log.length;
-  document.getElementById('stMin').textContent = log.reduce((s,l)=>s+l.min,0);
-  // streak
-  let streak=0; let d=new Date();
-  const set = new Set(log.map(l=>l.date));
+  document.getElementById('stTotal').textContent=log.length;
+  document.getElementById('stMin').textContent=log.reduce((s,l)=>s+l.min,0);
+  let streak=0; let d=new Date(); const set=new Set(log.map(l=>l.date));
   for(;;){
-    const k = d.toISOString().slice(0,10);
+    const k=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
     if(set.has(k)){ streak++; d.setDate(d.getDate()-1); }
-    else if(k===todayKey()){ d.setDate(d.getDate()-1); } // сегодня ещё не записал — не рвём
+    else if(k===todayKey()){ d.setDate(d.getDate()-1); }
     else break;
   }
-  document.getElementById('stStreak').textContent = streak;
+  document.getElementById('stStreak').textContent=streak;
 }
 
-// ===== ТЕХНИКА =====
 function renderTech(){
-  const el = document.getElementById('techList');
-  el.innerHTML = BLOCKS.map(b=>`
-    <div class="block open" style="margin-bottom:12px">
-      <div class="bhead"><span class="bemoji">${b.emoji}</span>
-        <div class="btitle"><b>${b.title}</b><small>${b.min} мин</small></div></div>
-      <div class="body" style="max-height:none">
-        ${b.ex.map(e=>`<div class="ex"><div class="extxt"><b>${e.t}</b><p>${e.d}</p></div></div>`).join('')}
-      </div></div>`).join('');
+  const el=document.getElementById('techList');
+  el.innerHTML=BLOCKS.map(b=>`<div class="shead">${b.emoji} ${b.title}<span class="m">${b.min} мин</span></div>
+    <div class="group">${b.ex.map(e=>`<div class="row" style="cursor:default"><div class="txt"><b>${e.t}</b><p>${e.d}</p></div><span class="min">${e.m}м</span></div>`).join('')}</div>`).join('');
 }
 
-// ===== ТАБЫ =====
 function tab(el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('act'));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('act'));
@@ -359,19 +321,11 @@ function tab(el){
   document.getElementById(el.dataset.p).classList.add('act');
   window.scrollTo(0,0);
 }
+function resetAll(){ if(confirm('Удалить ВСЕ данные и историю?')){ localStorage.clear(); location.reload(); } }
 
-function resetAll(){
-  if(confirm('Удалить ВСЕ данные и историю? Отменить нельзя.')){
-    localStorage.clear(); location.reload();
-  }
-}
-
-// ===== INIT =====
-const dw=['вс','пн','вт','ср','чт','пт','сб'];
-const nd=new Date();
-document.getElementById('dateSub').textContent =
+const dw=['вс','пн','вт','ср','чт','пт','сб'], nd=new Date();
+document.getElementById('dateSub').textContent=
   `${dw[nd.getDay()]}, ${nd.getDate()}.${String(nd.getMonth()+1).padStart(2,'0')} · лучше 10 мин каждый день, чем час раз в неделю`;
-BLOCKS[0]._open=true; // первый блок открыт
 render(); renderLog(); renderTech();
 </script>
 </body>
