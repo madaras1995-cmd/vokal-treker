@@ -326,31 +326,31 @@ function resetAll(){ if(confirm('Удалить ВСЕ данные и исто�
 
 /* ===== ПИАНО (Web Audio) ===== */
 const NOTES=[['до','C',261.63],['ре','D',293.66],['ми','E',329.63],['фа','F',349.23],['соль','G',392.00],['ля','A',440.00],['си','B',493.88],['до↑','C',523.25]];
-let oct=1, actx=null, unlocked=false;
-function ac(){ if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)(); return actx; }
-function unlock(){
-  const c=ac();
-  if(c.state==='suspended') c.resume();
-  if(!unlocked){ // silent buffer — iOS Web Audio unlock
-    const b=c.createBuffer(1,1,22050), s=c.createBufferSource();
-    s.buffer=b; s.connect(c.destination); s.start(0); unlocked=true;
+let oct=1;
+/* iOS глушит Web Audio боковым переключателем. WAV через Audio-элемент играет мимо mute. */
+const wavCache={};
+function makeWav(freq,dur){
+  const sr=44100, n=Math.floor(sr*dur), buf=new ArrayBuffer(44+n*2), v=new DataView(buf);
+  const w=(o,s)=>{for(let i=0;i<s.length;i++)v.setUint8(o+i,s.charCodeAt(i));};
+  w(0,'RIFF'); v.setUint32(4,36+n*2,true); w(8,'WAVE'); w(12,'fmt ');
+  v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+  v.setUint32(24,sr,true); v.setUint32(28,sr*2,true); v.setUint16(32,2,true); v.setUint16(34,16,true);
+  w(36,'data'); v.setUint32(40,n*2,true);
+  const a=0.01*sr, r=0.09*sr;
+  for(let i=0;i<n;i++){
+    const t=i/sr; let env=1;
+    if(i<a) env=i/a; else if(i>n-r) env=(n-i)/r;
+    const p=(freq*t)%1, tri=4*Math.abs(p-0.5)-1;
+    v.setInt16(44+i*2, tri*env*0.5*32767, true);
   }
-}
-document.addEventListener('touchstart',unlock,{once:false});
-document.addEventListener('click',unlock,{once:false});
-function beep(c,freq,dur){
-  const o=c.createOscillator(), g=c.createGain();
-  o.type='triangle'; o.frequency.value=freq;
-  o.connect(g); g.connect(c.destination);
-  const t=c.currentTime;
-  g.gain.setValueAtTime(0,t); g.gain.linearRampToValueAtTime(0.4,t+0.02);
-  g.gain.setValueAtTime(0.4,t+dur-0.1); g.gain.linearRampToValueAtTime(0,t+dur);
-  o.start(t); o.stop(t+dur);
+  const bytes=new Uint8Array(buf); let bin='';
+  for(let i=0;i<bytes.length;i++)bin+=String.fromCharCode(bytes[i]);
+  return 'data:audio/wav;base64,'+btoa(bin);
 }
 function tone(freq,dur=0.7){
-  const c=ac();
-  if(c.state==='suspended') c.resume().then(()=>beep(c,freq,dur));
-  else beep(c,freq,dur);
+  const key=freq.toFixed(1)+'_'+dur;
+  if(!wavCache[key]) wavCache[key]=makeWav(freq,dur);
+  const a=new Audio(wavCache[key]); a.volume=1; a.play().catch(()=>{});
 }
 function setOct(el){ oct=parseFloat(el.dataset.o); document.querySelectorAll('.octbtn').forEach(b=>b.classList.remove('act')); el.classList.add('act'); }
 function renderKeys(){
