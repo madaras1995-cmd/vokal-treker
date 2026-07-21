@@ -117,6 +117,14 @@ details.song[open] summary.songsum::after{transform:rotate(-90deg)}
 .snote{width:100%;background:#F2F2F7;border:none;border-radius:10px;color:var(--txt);padding:10px 12px;font-size:14px;font-family:inherit;line-height:1.4;resize:vertical;min-height:56px}
 .snote::placeholder{color:var(--dim)}
 .snote.lyr{min-height:130px;line-height:1.5}
+details.subtoggle{margin-top:10px;background:#F7F7FA;border-radius:10px;padding:0 11px}
+summary.subsum{padding:11px 2px;font-size:14px;font-weight:600;color:var(--blue);cursor:pointer;list-style:none}
+summary.subsum::-webkit-details-marker{display:none}
+summary.subsum::after{content:' ›';color:var(--dim)}
+details.subtoggle[open] summary.subsum::after{content:' ⌄'}
+.lnrow{padding:9px 2px 10px;border-top:1px solid var(--sep)}
+.lnt{font-size:14px;font-weight:600;line-height:1.3}
+.lnh{font-size:12.5px;color:var(--dim2);line-height:1.42;margin-top:3px}
 .delsong{color:var(--red);font-size:13px;cursor:pointer;font-weight:600;flex-shrink:0}
 .addsong{display:block;width:calc(100% - 32px);margin:10px 16px 4px;background:var(--card);color:var(--blue);border:none;padding:14px;border-radius:14px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .addsong:active{opacity:.6}
@@ -423,7 +431,37 @@ const SONGS=[
 А на сердце опять горячо горячо
 И опять и опять без ответа
 А листочек с берёзки упал
-Он, как я, оторвался от веток` },
+Он, как я, оторвался от веток`,
+    lines:[
+      {g:'▸ КУПЛЕТ 1 — тихо, задумчиво, вполголоса'},
+      {t:'Отчего так в России берёзы шумят?', h:'Начни МЯГКО, не в полный голос. Вопрос — к «шумят» интонация чуть вверх. Улыбка в глазах.'},
+      {t:'Отчего белоствольные всё понимают?', h:'Так же тихо, ровно. «понимАют» — вверх, вопрос. Вдох перед строкой.'},
+      {t:'У дорог, прислонившись по ветру, стоят', h:'Ровно, повествуешь. К «стоят» — вниз. Не тяни.'},
+      {t:'И листву так печально кидают', h:'«печАльно» — мягко тяни, вниз, грустно. Вдох после (конец куплета).'},
+      {g:'▸ КУПЛЕТ 2 — чуть светлее'},
+      {t:'Я пойду по дороге - простору я рад', h:'Светлее. «рад» — вверх, короткая радость.'},
+      {t:'Может, это лишь всё, что я в жизни узнаю', h:'Задумчиво. «узнАю» — вниз, горько.'},
+      {t:'Отчего так печальные листья летят', h:'«печАльные» мягко, «летят» — вверх, вопрос.'},
+      {t:'Под рубахою душу лаская', h:'«лаская» — нежно тяни, тихо, вниз. Вдох (идёт припев).'},
+      {g:'▸ ПРИПЕВ — РАСКРОЙ, громче, от живота'},
+      {t:'А на сердце опять горячо горячо', h:'РАСКРОЙ, громче куплета. Повтор «горячО горячО» — второй усиль. От живота, НЕ горлом.'},
+      {t:'И опять и опять без ответа', h:'Держи мощь на прессе. «ответа» — вниз.'},
+      {t:'А листочек с берёзки упал на плечо', h:'Чуть мягче, но всё раскрыто. «плечО» — вниз.'},
+      {t:'Он, как я, оторвался от веток', h:'«оторвАлся» — ключевое, с болью. «веток» — вниз, затихни. Вдох.'},
+      {g:'▸ КУПЛЕТ 3 — тихо, тепло, интимно (прощание с матерью)'},
+      {t:'Посидим на дорожку, родная, с тобой', h:'Тихо, тепло. «родная» — нежно. Ты прощаешься.'},
+      {t:'Ты пойми, я вернусь - не печалься, не стоит', h:'«не печАлься, не стОит» — вниз, горько, успокаиваешь её. Ударение «стОит».'},
+      {t:'И старуха махнёт на прощанье рукой', h:'Тихо, повествуешь. «рукой» — вниз.'},
+      {t:'И за мною калитку закроет', h:'«закроет» тяни, вниз, точка. Вдох.'},
+      {g:'▸ КУПЛЕТ 4 — как 1-й, вопрос'},
+      {t:'Отчего так в России берёзы шумят?', h:'Как строка 1 — тихо, вопрос вверх к «шумят».'},
+      {t:'Отчего хорошо так гармошка играет?', h:'«игрАет» — вверх, чуть светлее.'},
+      {t:'Пальцы ветром по кнопочкам враз пролетят', h:'Быстрее по ритму, легко. «пролетят» — вверх.'},
+      {t:'А последнее ввек западает', h:'«западАет» — вниз, задумчиво. Вдох (припев).'},
+      {g:'▸ ПРИПЕВ ×2 — раскрой, потом финал в тишину'},
+      {t:'А на сердце опять горячо горячо…', h:'Повтор припева как выше — раскрыто, от живота.'},
+      {t:'…А листочек с берёзки упал / Он, как я, оторвался от веток', h:'ФИНАЛ — отпусти, совсем тихо. Последняя нота мягко в ноль. Не дожимай.'},
+    ] },
   { id:'pozovi', name:'Позови меня тихо по имени (Любэ)', steps:[
     {k:'1 Смысл', v:'Тоска по любимой/дому, зов домой. Мужская нежность без сюсюканья.'},
     {k:'2 Проговори', v:'«Позови меня тихо по имени» — как будто правда зовёшь, тихо.'},
@@ -565,17 +603,20 @@ function renderSongs(){
   const notes=JSON.parse(localStorage.vk_songNotes||'{}');
   const lyr=JSON.parse(localStorage.vk_songLyrics||'{}');
   const us=JSON.parse(localStorage.vk_userSongs||'[]');
-  let html=SONGS.map(s=>songCard(s.id,s.name,s.steps,notes[s.id]||'',false,(lyr[s.id]!==undefined?lyr[s.id]:(s.lyrics||'')))).join('');
-  html+=us.map(s=>songCard(s.id,s.name,null,s.notes||'',true,s.lyrics||'')).join('');
+  let html=SONGS.map(s=>songCard(s.id,s.name,s.steps,notes[s.id]||'',false,(lyr[s.id]!==undefined?lyr[s.id]:(s.lyrics||'')),s.lines)).join('');
+  html+=us.map(s=>songCard(s.id,s.name,null,s.notes||'',true,s.lyrics||'',null)).join('');
   el.innerHTML=html;
 }
-function songCard(id,name,steps,note,user,lyrics){
+function songCard(id,name,steps,note,user,lyrics,lines){
   const lyrBlock=`<div class="notelbl">Текст песни</div><textarea class="snote lyr" placeholder="Вставь сюда текст песни…" oninput="saveLyrics('${id}',this.value,${user})">${esc(lyrics)}</textarea>`;
+  const lineBlock = (lines&&lines.length)
+    ? `<details class="subtoggle"><summary class="subsum">🎤 Построчно — как петь каждую строку</summary>${lines.map(l=>l.g?`<div class="notelbl" style="margin:8px 0 2px">${esc(l.g)}</div>`:`<div class="lnrow"><div class="lnt">${esc(l.t)}</div><div class="lnh">${esc(l.h)}</div></div>`).join('')}</details>`
+    : '';
   const razbor = steps
     ? `<div class="notelbl">Разбор — как петь</div>`+steps.map(st=>`<div class="sstep"><b>${st.k}.</b> ${st.v}</div>`).join('')
     : `<div class="sstep free">Твоя песня. Разбери по методу сверху (10 шагов) и запиши заметки.</div>`;
   const del = user?`<span class="delsong" onclick="event.preventDefault();delUserSong('${id}')">удалить</span>`:'';
-  return `<details class="song"><summary class="songsum"><span>🎵 ${esc(name)}</span>${del}</summary><div class="songbody">${lyrBlock}${razbor}<div class="notelbl">Мои заметки</div><textarea class="snote" placeholder="Что сказала Татьяна, где зажимаюсь, что получается…" oninput="saveNote('${id}',this.value,${user})">${esc(note)}</textarea></div></details>`;
+  return `<details class="song"><summary class="songsum"><span>🎵 ${esc(name)}</span>${del}</summary><div class="songbody">${lyrBlock}${lineBlock}${razbor}<div class="notelbl">Мои заметки</div><textarea class="snote" placeholder="Что сказала Татьяна, где зажимаюсь, что получается…" oninput="saveNote('${id}',this.value,${user})">${esc(note)}</textarea></div></details>`;
 }
 function saveNote(id,val,user){
   if(user){ const us=JSON.parse(localStorage.vk_userSongs||'[]'); const i=us.findIndex(s=>s.id===id); if(i>=0){us[i].notes=val; localStorage.vk_userSongs=JSON.stringify(us);} }
