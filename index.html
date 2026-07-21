@@ -116,6 +116,7 @@ details.song[open] summary.songsum::after{transform:rotate(-90deg)}
 .notelbl{font-size:12px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin:12px 0 4px}
 .snote{width:100%;background:#F2F2F7;border:none;border-radius:10px;color:var(--txt);padding:10px 12px;font-size:14px;font-family:inherit;line-height:1.4;resize:vertical;min-height:56px}
 .snote::placeholder{color:var(--dim)}
+.snote.lyr{min-height:130px;line-height:1.5}
 .delsong{color:var(--red);font-size:13px;cursor:pointer;font-weight:600;flex-shrink:0}
 .addsong{display:block;width:calc(100% - 32px);margin:10px 16px 4px;background:var(--card);color:var(--blue);border:none;padding:14px;border-radius:14px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.04)}
 .addsong:active{opacity:.6}
@@ -413,7 +414,51 @@ const SONGS=[
     {k:'8 Подача', v:'Эмоция боли (см. блок Крик). Лицо живёт, не каменное.'},
     {k:'9 Зажимы/высокие', v:'Припев высокий и мощный = опасно горлом (хрип). Мощь от живота/пресса. Караоке: рвёт — понизь или тише-надрывнее.'},
     {k:'10 Техника', v:'Крик = выкрик души на опоре, НЕ связками. Хрип = стоп сразу.'},
-  ]},
+  ], lyrics:`Я пытался уйти от любви
+Я брал острую бритву и правил себя
+Я укрылся в подвале, я резал
+Кожаные ремни, стянувшие слабую грудь
+
+Я хочу быть с тобой
+Я хочу быть с тобой
+Я так хочу быть с тобой
+Я хочу быть с тобой
+И я буду с тобой
+В комнате с белым потолком
+С правом на надежду
+В комнате с видом на огни
+С верою в любовь
+
+Твое имя давно стало другим
+Глаза навсегда потеряли свой цвет
+Пьяный врач мне сказал, тебя больше нет
+Пожарный выдал мне справку, что дом твой сгорел
+
+Но я хочу быть с тобой
+Я хочу быть с тобой
+Я так хочу быть с тобой
+Я хочу быть с тобой
+И я буду с тобой
+В комнате с белым потолком
+С правом на надежду
+В комнате с видом на огни
+С верою в любовь
+
+Я ломал стекло, как шоколад, в руке
+Я резал эти пальцы за то, что они
+Не могут прикоснуться к тебе
+Я смотрел в эти лица и не мог им простить
+Того, что у них нет тебя и они могут жить
+
+Но я хочу быть с тобой
+Я хочу быть с тобой
+Я так хочу быть с тобой
+Я хочу быть с тобой
+И я буду с тобой
+В комнате с белым потолком
+С правом на надежду
+В комнате с видом на огни
+С верою в любовь` },
   { id:'takkrasivo', name:'Так красиво (Лазарев)', steps:[
     {k:'1 Смысл', v:'Расставание, боль сквозь красоту. «Так красиво, что аж больно» — любуешься и больно одновременно.'},
     {k:'2 Проговори', v:'Текст как разговор, тихо. Прочувствуй горечь до мелодии.'},
@@ -437,27 +482,75 @@ const SONGS=[
     {k:'8 Подача', v:'Эмоция боли и вопроса (см. блок Крик). Не каменное лицо — проживай.'},
     {k:'9 Зажимы/высокие', v:'⚠️ Припев высокий и мощный (белт) — опасно горлом = хрип. Караоке-выживалка: рвёт верх → понизь фразу или пой тише-надрывнее «под трек». Мощь от пресса, не от глотки.'},
     {k:'10 Техника', v:'Крик припева = выкрик души на опоре живота, НЕ связками. Хрип = стоп сразу.'},
-  ]},
+  ], lyrics:`Ты была не той была совсем другой
+Право выбора оставив за собой
+Зачем у Бога о любви просить
+Чтоб потом её бездарно так разбить
+Слёзы это ложь как кратковременный дождь
+Правды нет одна вода как всегда да
+
+Зачем придумали любовь
+Понять всё это слишком сложно
+И без неё намного проще жить только невозможно
+Зачем придумали любовь
+Её мы ищем днём и ночью
+Как по замкнутому кругу вновь
+Кто придумал эту любовь
+
+Без страховки падать страшно и я это знал
+И доверил сердце но не тем рукам
+Я границы нарушал просто рисковал
+И возможно не по правилам играл
+Мне не повезло что было то прошло
+Пусть в это трудно поверить
+Я буду стучатся в закрытые двери
+
+Зачем придумали любовь
+Понять всё это слишком сложно
+Без неё намного проще жить только невозможно
+Зачем придумали любовь
+Она нам наркотик в кровь
+Как по замкнутому кругу вновь
+Кто придумал любовь
+
+Оставляя всё без ответов
+Я потерял себя незаметно
+На двоих делил бесконечность
+Как же любил я тебя
+
+Зачем придумали любовь
+Понять всё это слишком сложно
+И без неё намного проще жить только невозможно
+Зачем придумали любовь
+Она нам отравляет кровь
+Как по замкнутому кругу вновь
+Кто придумал любовь` },
 ];
 function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
 function renderSongs(){
   const el=document.getElementById('songList');
   const notes=JSON.parse(localStorage.vk_songNotes||'{}');
+  const lyr=JSON.parse(localStorage.vk_songLyrics||'{}');
   const us=JSON.parse(localStorage.vk_userSongs||'[]');
-  let html=SONGS.map(s=>songCard(s.id,s.name,s.steps,notes[s.id]||'',false)).join('');
-  html+=us.map(s=>songCard(s.id,s.name,null,s.notes||'',true)).join('');
+  let html=SONGS.map(s=>songCard(s.id,s.name,s.steps,notes[s.id]||'',false,(lyr[s.id]!==undefined?lyr[s.id]:(s.lyrics||'')))).join('');
+  html+=us.map(s=>songCard(s.id,s.name,null,s.notes||'',true,s.lyrics||'')).join('');
   el.innerHTML=html;
 }
-function songCard(id,name,steps,note,user){
-  const body = steps
-    ? steps.map(st=>`<div class="sstep"><b>${st.k}.</b> ${st.v}</div>`).join('')
-    : `<div class="sstep free">Твоя песня. Разбери по методу сверху (10 шагов) и запиши сюда заметки.</div>`;
+function songCard(id,name,steps,note,user,lyrics){
+  const lyrBlock=`<div class="notelbl">Текст песни</div><textarea class="snote lyr" placeholder="Вставь сюда текст песни…" oninput="saveLyrics('${id}',this.value,${user})">${esc(lyrics)}</textarea>`;
+  const razbor = steps
+    ? `<div class="notelbl">Разбор — как петь</div>`+steps.map(st=>`<div class="sstep"><b>${st.k}.</b> ${st.v}</div>`).join('')
+    : `<div class="sstep free">Твоя песня. Разбери по методу сверху (10 шагов) и запиши заметки.</div>`;
   const del = user?`<span class="delsong" onclick="event.preventDefault();delUserSong('${id}')">удалить</span>`:'';
-  return `<details class="song"><summary class="songsum"><span>🎵 ${esc(name)}</span>${del}</summary><div class="songbody">${body}<div class="notelbl">Мои заметки</div><textarea class="snote" placeholder="Что сказала Татьяна, где зажимаюсь, что получается…" oninput="saveNote('${id}',this.value,${user})">${esc(note)}</textarea></div></details>`;
+  return `<details class="song"><summary class="songsum"><span>🎵 ${esc(name)}</span>${del}</summary><div class="songbody">${lyrBlock}${razbor}<div class="notelbl">Мои заметки</div><textarea class="snote" placeholder="Что сказала Татьяна, где зажимаюсь, что получается…" oninput="saveNote('${id}',this.value,${user})">${esc(note)}</textarea></div></details>`;
 }
 function saveNote(id,val,user){
   if(user){ const us=JSON.parse(localStorage.vk_userSongs||'[]'); const i=us.findIndex(s=>s.id===id); if(i>=0){us[i].notes=val; localStorage.vk_userSongs=JSON.stringify(us);} }
   else { const n=JSON.parse(localStorage.vk_songNotes||'{}'); n[id]=val; localStorage.vk_songNotes=JSON.stringify(n); }
+}
+function saveLyrics(id,val,user){
+  if(user){ const us=JSON.parse(localStorage.vk_userSongs||'[]'); const i=us.findIndex(s=>s.id===id); if(i>=0){us[i].lyrics=val; localStorage.vk_userSongs=JSON.stringify(us);} }
+  else { const l=JSON.parse(localStorage.vk_songLyrics||'{}'); l[id]=val; localStorage.vk_songLyrics=JSON.stringify(l); }
 }
 function addSong(){
   const name=prompt('Название песни (и исполнитель):'); if(!name||!name.trim())return;
