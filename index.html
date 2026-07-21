@@ -102,6 +102,23 @@ body{
 .tab.act{color:var(--blue)}
 .page{display:none} .page.act{display:block}
 .pad{height:8px}
+
+/* songs */
+details.song{background:var(--card);border-radius:14px;margin:0 16px 10px;box-shadow:0 1px 2px rgba(0,0,0,.04);overflow:hidden}
+summary.songsum{padding:14px 15px;font-size:17px;font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px}
+summary.songsum::-webkit-details-marker{display:none}
+summary.songsum::after{content:'›';color:var(--dim);font-size:22px;transform:rotate(90deg);transition:.2s}
+details.song[open] summary.songsum::after{transform:rotate(-90deg)}
+.songbody{padding:0 15px 14px}
+.sstep{padding:9px 0;border-top:1px solid var(--sep);font-size:13.5px;line-height:1.45;color:var(--dim2)}
+.sstep b{color:var(--blue);font-weight:600}
+.sstep.free{border-top:none;padding-top:2px}
+.notelbl{font-size:12px;font-weight:600;color:var(--dim);text-transform:uppercase;letter-spacing:.4px;margin:12px 0 4px}
+.snote{width:100%;background:#F2F2F7;border:none;border-radius:10px;color:var(--txt);padding:10px 12px;font-size:14px;font-family:inherit;line-height:1.4;resize:vertical;min-height:56px}
+.snote::placeholder{color:var(--dim)}
+.delsong{color:var(--red);font-size:13px;cursor:pointer;font-weight:600;flex-shrink:0}
+.addsong{display:block;width:calc(100% - 32px);margin:10px 16px 4px;background:var(--card);color:var(--blue);border:none;padding:14px;border-radius:14px;font-size:16px;font-weight:600;font-family:inherit;cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.addsong:active{opacity:.6}
 </style>
 </head>
 <body>
@@ -176,9 +193,33 @@ body{
   <div class="pad"></div>
 </div>
 
+<!-- SONGS -->
+<div class="page" id="pgSongs">
+  <div class="shead">🎤 Песни · как петь по методу Татьяны</div>
+  <details class="song">
+    <summary class="songsum"><span>📋 Как разбирать любую песню</span></summary>
+    <div class="songbody">
+      <div class="sstep"><b>1.</b> Смысл — о чём, чья история, эмоция</div>
+      <div class="sstep"><b>2.</b> Проговори текст как разговор</div>
+      <div class="sstep"><b>3.</b> Динамика — где тихо (пьяно), где раскрыть</div>
+      <div class="sstep"><b>4.</b> Интонация фраз — вверх/вниз (горько/светло)</div>
+      <div class="sstep"><b>5.</b> Ударения — главное слово в фразе громче</div>
+      <div class="sstep"><b>6.</b> Дыхание — добирай в паузах, не рви слова</div>
+      <div class="sstep"><b>7.</b> Согласные — свистящие тише, крайние чётко</div>
+      <div class="sstep"><b>8.</b> Подача — улыбка+удивление / крик души</div>
+      <div class="sstep"><b>9.</b> Зажимы+высокие — тело живёт, высокую облегчи</div>
+      <div class="sstep"><b>10.</b> Техника — от живота/пресса, не горлом</div>
+    </div>
+  </details>
+  <div id="songList"></div>
+  <button class="addsong" onclick="addSong()">＋ Добавить свою песню</button>
+  <div class="pad"></div>
+</div>
+
 <div class="tabs">
   <div class="tab act" data-p="pgToday" onclick="tab(this)"><span class="i">🎯</span>Сегодня</div>
   <div class="tab" data-p="pgPiano" onclick="tab(this)"><span class="i">🎹</span>Пиано</div>
+  <div class="tab" data-p="pgSongs" onclick="tab(this)"><span class="i">🎤</span>Песни</div>
   <div class="tab" data-p="pgJournal" onclick="tab(this)"><span class="i">📅</span>Журнал</div>
   <div class="tab" data-p="pgTech" onclick="tab(this)"><span class="i">📖</span>Техника</div>
 </div>
@@ -335,6 +376,76 @@ function renderStats(){
 function renderTech(){
   document.getElementById('techList').innerHTML=BLOCKS.map(b=>`<div class="shead">${b.emoji} ${b.title}<span class="m">${b.min} мин</span></div><div class="group">${b.ex.map(e=>`<div class="row" style="cursor:default"><div class="txt"><b>${e.t}</b><p>${e.d}</p></div><span class="min">${e.m}м</span></div>`).join('')}</div>`).join('');
 }
+/* ===== ПЕСНИ ===== */
+const SONGS=[
+  { id:'berezy', name:'Берёзы (Любэ)', steps:[
+    {k:'1 Смысл', v:'Прощание, светлая грусть, тоска по дому/матери. Поёшь горько, но тепло — не рыдая.'},
+    {k:'2 Проговори', v:'«Отчего так в России берёзы шумят…» — сначала как разговор, своей интонацией, медленно.'},
+    {k:'3 Динамика', v:'Куплет тихо (пьяно). Припев «Что ж так сердце…» раскрыть, но НЕ орать.'},
+    {k:'4 Интонация', v:'«не печалься, не стой» — вниз, горько. «отчего, отчего» — чуть вверх, вопрос.'},
+    {k:'5 Ударения', v:'«не стОит», «берЁзы», «сЕрдце». Главное слово во фразе — громче.'},
+    {k:'6 Дыхание', v:'Добирай в паузах между строк. Не рви «берё-(вдох)-зы». Фразу до конца на одной опоре.'},
+    {k:'7 Согласные', v:'«ш» в «шумят» мягко, «с» тише гласной. Не выплёвывай.'},
+    {k:'8 Подача', v:'Улыбка глазами даже в грусти («как прекрасен мир»). Покачивайся телом.'},
+    {k:'9 Зажимы/высокие', v:'Припев выше — не тянись горлом, опусти на пресс. Высокую ноту облегчи. Тело живёт.'},
+    {k:'10 Техника', v:'Звук от живота, горло свободно. Устал пресс = правильно.'},
+  ]},
+  { id:'pozovi', name:'Позови меня тихо по имени (Любэ)', steps:[
+    {k:'1 Смысл', v:'Тоска по любимой/дому, зов домой. Мужская нежность без сюсюканья.'},
+    {k:'2 Проговори', v:'«Позови меня тихо по имени» — как будто правда зовёшь, тихо.'},
+    {k:'3 Динамика', v:'Куплеты тихо и глухо. Припев «Позови…» раскрыть теплее.'},
+    {k:'4 Интонация', v:'«тихо по имени» — вниз, мягко. «к воде отведи» — плавно.'},
+    {k:'5 Ударения', v:'«пОзови», «Имени», «водЕ». По одному главному слову.'},
+    {k:'6 Дыхание', v:'НЕ рви слова добором посреди фразы. Вдох только в паузе.'},
+    {k:'7 Согласные', v:'Свистящие «с/з» тише гласной, не выпячивай. Крайние согласные чётко.'},
+    {k:'8 Подача', v:'По-мужски, без надрыва, тепло. Не «красиво пропеть» — позвать.'},
+    {k:'9 Зажимы/высокие', v:'Припев чуть выше — на опору, не в горло. Караоке: самую высокую понизь на октаву если рвёт.'},
+    {k:'10 Техника', v:'Опора на живот, свободное горло, мягкая атака.'},
+  ]},
+  { id:'hochu', name:'Я хочу быть с тобой (Наутилус)', steps:[
+    {k:'1 Смысл', v:'Крик боли от потери любимой. Отчаяние. «Я так хочу быть с тобой» — сквозь боль.'},
+    {k:'2 Проговори', v:'Текст без мелодии, прочувствуй отчаяние строк. Не «спеть» — прожить.'},
+    {k:'3 Динамика', v:'Куплеты тихо, глухо, зажато (боль внутри). Припев — прорыв, крик души.'},
+    {k:'4 Интонация', v:'Куплет ровно-глухо. Припев «Я хочу быть с тобой» — вверх, на надрыве.'},
+    {k:'5 Ударения', v:'«хочУ», «с тобОй». Каждый повтор припева усиливай.'},
+    {k:'6 Дыхание', v:'Перед припевом набери опору. Припев на прессе, не на связках.'},
+    {k:'7 Согласные', v:'«с тобой» — «с» не свисти, сразу на гласную.'},
+    {k:'8 Подача', v:'Эмоция боли (см. блок Крик). Лицо живёт, не каменное.'},
+    {k:'9 Зажимы/высокие', v:'Припев высокий и мощный = опасно горлом (хрип). Мощь от живота/пресса. Караоке: рвёт — понизь или тише-надрывнее.'},
+    {k:'10 Техника', v:'Крик = выкрик души на опоре, НЕ связками. Хрип = стоп сразу.'},
+  ]},
+];
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));}
+function renderSongs(){
+  const el=document.getElementById('songList');
+  const notes=JSON.parse(localStorage.vk_songNotes||'{}');
+  const us=JSON.parse(localStorage.vk_userSongs||'[]');
+  let html=SONGS.map(s=>songCard(s.id,s.name,s.steps,notes[s.id]||'',false)).join('');
+  html+=us.map(s=>songCard(s.id,s.name,null,s.notes||'',true)).join('');
+  el.innerHTML=html;
+}
+function songCard(id,name,steps,note,user){
+  const body = steps
+    ? steps.map(st=>`<div class="sstep"><b>${st.k}.</b> ${st.v}</div>`).join('')
+    : `<div class="sstep free">Твоя песня. Разбери по методу сверху (10 шагов) и запиши сюда заметки.</div>`;
+  const del = user?`<span class="delsong" onclick="event.preventDefault();delUserSong('${id}')">удалить</span>`:'';
+  return `<details class="song"><summary class="songsum"><span>🎵 ${esc(name)}</span>${del}</summary><div class="songbody">${body}<div class="notelbl">Мои заметки</div><textarea class="snote" placeholder="Что сказала Татьяна, где зажимаюсь, что получается…" oninput="saveNote('${id}',this.value,${user})">${esc(note)}</textarea></div></details>`;
+}
+function saveNote(id,val,user){
+  if(user){ const us=JSON.parse(localStorage.vk_userSongs||'[]'); const i=us.findIndex(s=>s.id===id); if(i>=0){us[i].notes=val; localStorage.vk_userSongs=JSON.stringify(us);} }
+  else { const n=JSON.parse(localStorage.vk_songNotes||'{}'); n[id]=val; localStorage.vk_songNotes=JSON.stringify(n); }
+}
+function addSong(){
+  const name=prompt('Название песни (и исполнитель):'); if(!name||!name.trim())return;
+  const us=JSON.parse(localStorage.vk_userSongs||'[]');
+  us.push({id:'u'+Date.now(),name:name.trim(),notes:''});
+  localStorage.vk_userSongs=JSON.stringify(us); renderSongs();
+}
+function delUserSong(id){
+  if(!confirm('Удалить эту песню?'))return;
+  let us=JSON.parse(localStorage.vk_userSongs||'[]');
+  us=us.filter(s=>s.id!==id); localStorage.vk_userSongs=JSON.stringify(us); renderSongs();
+}
 function tab(el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('act'));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('act'));
@@ -382,7 +493,7 @@ function playGamma(){
 
 const dw=['вс','пн','вт','ср','чт','пт','сб'],nd=new Date();
 document.getElementById('dateSub').textContent=`${dw[nd.getDay()]}, ${nd.getDate()}.${String(nd.getMonth()+1).padStart(2,'0')} · лучше 10 мин каждый день, чем час раз в неделю`;
-render(); renderLog(); renderTech(); renderKeys();
+render(); renderLog(); renderTech(); renderKeys(); renderSongs();
 </script>
 </body>
 </html>
